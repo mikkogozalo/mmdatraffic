@@ -37,6 +37,8 @@ def intensity_processor(intensity):
         }
         if intensity.lower() in intensity_map:
             return intensity_map[intensity.lower()]
+    elif isinstance(intensity, int):
+        return intensity
 
 def date_processor(date):
     try:

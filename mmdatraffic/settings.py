@@ -13,7 +13,7 @@ BOT_NAME = 'mmdatraffic'
 SPIDER_MODULES = ['mmdatraffic.spiders']
 NEWSPIDER_MODULE = 'mmdatraffic.spiders'
 ITEM_PIPELINES = {
-    'mmdatraffic.pipelines.GuidPipeline': 100,
+    'mmdatraffic.pipelines.LatestPipeline': 100,
     # 'mmdatraffic.pipelines.MySQLPipeline': 150,
 }
 

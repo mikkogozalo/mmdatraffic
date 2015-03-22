@@ -11,7 +11,7 @@ from scrapy.exceptions import DropItem
 from scrapy import log
 
 
-class GuidPipeline(object):
+class LatestPipeline(object):
 
     def open_spider(self, spider):
         self.guid_monitor = {}
@@ -19,20 +19,15 @@ class GuidPipeline(object):
     def process_item(self, item, spider):
         if all(
                 field in item for field in
-                    ['name', 'direction', 'line', 'guid']
+                    ['name', 'direction', 'line', 'timestamp']
             ):
             slug = "/".join(
                 [item['name'],
                 item['direction'],
                 item['line']]
             )
-            if slug not in self.guid_monitor:
-                self.guid_monitor[slug] = []
-            if item['guid'] in self.guid_monitor[slug]:
-                raise DropItem('Crawled already')
-            self.guid_monitor[slug].append(item['guid'])
-            if len(self.guid_monitor[slug]) == 10:
-                self.guid_monitor[slug].pop(0)
-        else:
-            log.msg('Item is not complete %s' % item)
-        return item
+            if self.guid_monitor.get(slug, 0) >= item['timestamp']:
+                raise DropItem('We already have this time')
+            else:
+                self.guid_monitor[slug] = item['timestamp']
+            return item
