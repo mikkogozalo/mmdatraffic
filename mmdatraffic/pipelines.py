@@ -31,6 +31,8 @@ class GuidPipeline(object):
             if item['guid'] in self.guid_monitor[slug]:
                 raise DropItem('Crawled already')
             self.guid_monitor[slug].append(item['guid'])
+            if len(self.guid_monitor[slug]) == 10:
+                self.guid_monitor[slug].pop(0)
         else:
             log.msg('Item is not complete %s' % item)
         return item

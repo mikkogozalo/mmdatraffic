@@ -49,7 +49,7 @@ class MmdaTrafficRSSSpider(Spider):
             yield iil.load_item()
 
     def scrape_again(self, spider):
-        if time.time() - self.last_scrape >= 10:
+        if time.time() - self.last_scrape >= 20:
             self.crawler.engine.schedule(
                 Request(self.start_urls[0], dont_filter=True),
                 spider
