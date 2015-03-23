@@ -61,6 +61,9 @@ class MmdaTrafficSpider(Spider):
                 iil = IntensityItemLoader()
                 iil.add_value('name', location_data['location'])
                 iil.add_value('line', location_data['line'])
+                iil.add_value('mmda_line_id', traffic_info[0][0])
+                iil.add_value('mmda_loc_id', traffic_info[0][1])
+
                 north = IntensityItemLoader(iil.load_item())
                 south = IntensityItemLoader(iil.load_item())
                 north.add_value('direction', 'n')

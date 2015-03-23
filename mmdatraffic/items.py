@@ -13,6 +13,8 @@ class IntensityItem(Item):
     intensity = Field()
     guid = Field()
     timestamp = Field()
+    mmda_line_id = Field()
+    mmda_loc_id = Field()
 
 class AdvisoryItem(Item):
     body = Field()
